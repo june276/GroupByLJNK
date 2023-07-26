@@ -22,7 +22,8 @@
             <div class="my-3">
                 <label for="content">내용</label>
                 <textarea class="form-control" id="content" rows="5" name="content" placeholder="내용을 입력하세요" th:utext="${content}"></textarea>
-<!--                <span class="text-danger" th:if="${error_content}" th:utext="${error_content}"></span>-->
+                <span class="text-danger" th:if="${error_content}" th:utext="${error_content}"></span>
+
             </div>
             <input type="hidden" name="game_id", th:value="${appId}">
             <input type="hidden" name="user.id" th:value="${user.id}"/>

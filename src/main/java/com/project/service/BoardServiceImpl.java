@@ -36,7 +36,7 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     public BoardServiceImpl(SqlSession sqlSession){
 
-        boardRepository=sqlSession.getMapper(BoardRepository.class);
+        boardRepository = sqlSession.getMapper(BoardRepository.class);
         userRepository = sqlSession.getMapper(UserRepository.class);
 
     }
@@ -58,6 +58,7 @@ public class BoardServiceImpl implements BoardService {
 
         return board;
     }
+
 
     @Override
     public List<Board> list() {
@@ -82,7 +83,7 @@ public class BoardServiceImpl implements BoardService {
         }
         session.setAttribute("page",page);
 
-        long count = boardRepository.countAll();
+        long count = boardRepository.countAll(appId);
         int totalPage=(int) Math.ceil(count/(double)pageRows);
 
         if(page>totalPage){
@@ -90,6 +91,9 @@ public class BoardServiceImpl implements BoardService {
         }
 
         int fromRow = (page-1)*pageRows;
+        if(page==0){
+            fromRow=0;
+        }
 
         int start= (((page-1)/ writePage)*writePage) + 1;
         int end=start+writePage-1;
@@ -116,6 +120,7 @@ public class BoardServiceImpl implements BoardService {
         return list;
     }
 
+    // 글 읽어오기
     @Override
     public Board selectById(Long id) {
         Board board = boardRepository.findById(id);

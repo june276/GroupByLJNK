@@ -22,5 +22,9 @@ public class BoardValidator implements Validator {
         if(title==null|| title.trim().isEmpty()){
             errors.rejectValue("title","제목을 적어주세요");
         }
+        String content = board.getContent();
+        if(content==null || content.trim().isEmpty()){
+            errors.rejectValue("content","내용을 입력해주세요");
+        }
     }
 }

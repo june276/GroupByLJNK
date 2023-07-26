@@ -46,11 +46,24 @@ public class BoardController {
             @ModelAttribute("board")
             @Valid
             Board board
+            , BindingResult result
             , @PathVariable String appId
             ,Model model
             ,RedirectAttributes redirectAttributes
 
     ){
+        if(result.hasErrors()){
+            redirectAttributes.addFlashAttribute("title",board.getTitle());
+            redirectAttributes.addFlashAttribute("content",board.getContent());
+
+            List<FieldError> errorList = result.getFieldErrors();
+            for(FieldError error: errorList){
+                redirectAttributes.addFlashAttribute("error_" + error.getField(),error.getCode());
+            }
+            return "redirect:/board/write/{appId}";
+
+        }
+
         board.setIs_file(false);
         int write = boardService.write(board);
         model.addAttribute("result",write);
@@ -144,6 +157,7 @@ public class BoardController {
 
     @InitBinder
     public void initBinder(WebDataBinder binder){
+
         binder.setValidator(new BoardValidator());
     }
 }
