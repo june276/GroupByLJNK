@@ -30,7 +30,7 @@
 <!--작성-->
     <div class="container mt-3">
 <th:block th:insert="~{header/detail::appDetail}"></th:block>
-        <div>
+        <div class="mt-3">
             <a class="btn btn-outline-dark" th:href="@{'/board/write/' + ${appId}}" sec:authorize="hasAnyRole('ADMIN','MEMBER')">작성</a>
 
         </div>
