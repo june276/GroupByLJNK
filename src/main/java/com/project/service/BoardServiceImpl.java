@@ -59,7 +59,6 @@ public class BoardServiceImpl implements BoardService {
         return board;
     }
 
-
     @Override
     public List<Board> list() {
 
